@@ -1,7 +1,8 @@
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-
+import logging
+logging.basicConfig(filename="test_logging.basicConfig(filename="test_log.log", level=logging.INFO, format='(asctime)s - %(levelname)s: %(message)s')
 def Login_valid_function_test():
     # STEP1 FOR THE TEST
     driver = webdriver.Firefox ()
@@ -14,7 +15,6 @@ def Login_valid_function_test():
     User_name_filed_status  = User_name.is_enabled()
 
     if User_name_filed_status:
-        print(User_name_filed_status)
         User_name.clear()
         User_name.send_keys ( "Admin" )
 
@@ -38,6 +38,7 @@ def Login_valid_function_test():
     actual_url = driver.current_url
 
     if expectexd_url == actual_url:
+
         print("Login successfully")
     else:
         print("login failed")
@@ -55,10 +56,22 @@ def test_fast_one_invliad_issue():
     time.sleep(20)
 
     User_name = driver.find_element(By.NAME, "username")
-    User_name.send_keys("Admin12")
+    user_name_field = User_name.is_enabled()
+
+    if user_name_field:
+        User_name.clear()
+        User_name.send_keys("Admin12")
+    else:
+        print("not login")
 
     User_pasword = driver.find_element(By.NAME, "password")
-    User_pasword.send_keys("admin1234")
+    User_pasword_field = User_pasword.is_enabled()
+
+    if User_pasword_field:
+        User_pasword.clear()
+        User_pasword.send_keys("admin1234")
+    else:
+        print(dont allow to login)
 
     Login_button = driver.find_element(By.CSS_SELECTOR, ".orangehrm-login-button")
     Login_button.click()
